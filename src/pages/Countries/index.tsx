@@ -31,8 +31,9 @@ const Countries = () => {
                 {loading &&
 		                <div className=''>Loading...</div>
                 }{!loading &&
-		            countries.map((item) => (
+		            countries.map((item, index) => (
                         <CountryItem
+                            key={index}
                             name={item.name}
                             population={item.population}
                             region={item.region}
