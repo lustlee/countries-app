@@ -4,27 +4,30 @@ import {useEffect, useState} from "react";
 import {ICountry} from "../../types/Country";
 import {api} from "../../api";
 import SingleCountry from "../../components/SingleCountry";
+import {useForm} from "../../contexts/ThemeContext";
 const CountryPage = () => {
-    const {name} = useParams()
+    const {state} = useForm()
+    const {name, code} = useParams()
     const [loading, setLoading] = useState(false);
     const [country, setCountry] = useState<ICountry[]>([]);
 
     useEffect(() => {
         if (name) {
             getCountry(name);
+        } else if (code) {
+            getCountry(code);
         }
-    }, [name])
+    }, [name, code])
 
     const getCountry = async (param: string) => {
         setLoading(true);
-        let country = await api.getCountry(param);
+        let country = name ? await api.getCountry(param) : await api.getCountryByCode(param);
         setCountry(country);
-        console.log(country)
         setLoading(false);
     }
 
     return (
-        <C.CountryPage>
+        <C.CountryPage theme={state.theme}>
             <div className='container'>
                 <Link to='/' className='back--button'>Back</Link>
                 {loading &&

@@ -1,10 +1,12 @@
 import * as C from './styles'
 import {ICountryItem} from "../../types/CountryItem";
 import { Link } from 'react-router-dom'
+import {useForm} from "../../contexts/ThemeContext";
 
 export const CountryItem = ({name, population, region, capital, flag} : ICountryItem) => {
+    const {state} = useForm()
     return (
-        <C.CoutnryItem>
+        <C.CountryItem theme={state.theme}>
             <Link to={`/country/${name}`}>
                 <div className='img--area'>
                     <img src={flag} alt={`Bandeira do Paris: ${name}`}/>
@@ -16,6 +18,6 @@ export const CountryItem = ({name, population, region, capital, flag} : ICountry
                     <p>Capital: <span>{capital}</span></p>
                 </div>
             </Link>
-        </C.CoutnryItem>
+        </C.CountryItem>
     )
 }

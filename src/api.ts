@@ -14,7 +14,7 @@ export const api = {
         return response.data
     },
         getCountryByCode: async (code: string) => {
-        let response = await http.get(`/alpha?code=${code}`)
+        let response = await http.get(`/alpha?codes=${code}`)
         return response.data
-    }
+    },
 }
